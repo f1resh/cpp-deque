@@ -83,7 +83,9 @@ void MainWindow::SetRandomGen(const std::mt19937 &random_gen)
 
 void MainWindow::on_pb_popfront_clicked()
 {
-    if (!deque_model_.items.empty()) deque_model_.items.pop_front();
+    if (!deque_model_.items.empty()){
+		deque_model_.items.pop_front();
+	}
     resetIterator();
     ApplyModel();
 }
@@ -98,7 +100,9 @@ void MainWindow::on_pb_pushfront_clicked()
 
 void MainWindow::on_pb_popback_clicked()
 {
-    if (!deque_model_.items.empty()) deque_model_.items.pop_back();
+    if (!deque_model_.items.empty()){
+		deque_model_.items.pop_back();
+	}
     resetIterator();
     ApplyModel();
 }
@@ -266,7 +270,9 @@ void MainWindow::on_pb_count_clicked()
 
 void MainWindow::on_pb_sort_clicked()
 {
-    if (deque_model_.items.empty()) return;
+    if (deque_model_.items.empty()){
+		return;
+	}
     auto comp = [](const std::string& lhs, const std::string& rhs) {return lhs < rhs;};
     deque_model_.items = MergeSort<std::string, decltype(comp)>(deque_model_.items, comp);
     resetIterator();
@@ -276,7 +282,9 @@ void MainWindow::on_pb_sort_clicked()
 
 void MainWindow::on_pb_sort2_clicked()
 {
-    if (deque_model_.items.empty()) return;
+    if (deque_model_.items.empty()){
+		return;
+	}
     auto comp = [](const std::string& lhs, const std::string& rhs) {
         return QString::compare(QString::fromStdString(lhs),QString::fromStdString(rhs),Qt::CaseInsensitive) < 0;
     };
@@ -288,8 +296,12 @@ void MainWindow::on_pb_sort2_clicked()
 
 void MainWindow::on_pb_unique_clicked()
 {
-    if (deque_model_.items.empty()) return;
-    if (!isSorted()) return;
+    if (deque_model_.items.empty()){
+		return;
+	}
+    if (!isSorted()){
+		return;
+	}
     auto lastIt = std::unique(deque_model_.items.begin(),deque_model_.items.end());
     if (lastIt!=deque_model_.items.end()){
         deque_model_.items.erase(lastIt,deque_model_.items.end());
@@ -302,7 +314,9 @@ void MainWindow::on_pb_unique_clicked()
 
 void MainWindow::on_pb_reverse_clicked()
 {
-    if (deque_model_.items.empty()) return;
+    if (deque_model_.items.empty()){
+		return;
+	}
     std::reverse(deque_model_.items.begin(), deque_model_.items.end());
     ApplyModel();
 }
@@ -310,15 +324,21 @@ void MainWindow::on_pb_reverse_clicked()
 
 void MainWindow::on_pb_shuffle_clicked()
 {
-    if (deque_model_.items.empty()) return;
+    if (deque_model_.items.empty()){
+		return;
+	}
     std::shuffle(deque_model_.items.begin(),deque_model_.items.end(),gen_shuffle_);
     ApplyModel();
 }
 
 void MainWindow::on_pb_lbound_clicked()
 {
-    if (deque_model_.items.empty()) return;
-    if (!isSorted()) return;
+    if (deque_model_.items.empty()){
+		return;
+	}
+    if (!isSorted()){
+		return;
+	}
     auto it = std::lower_bound(deque_model_.items.begin(), deque_model_.items.end(), ui->txt_elem_content->text().toStdString());
     deque_model_.iterator = it;
     ApplyIterator();
@@ -327,8 +347,12 @@ void MainWindow::on_pb_lbound_clicked()
 
 void MainWindow::on_pb_ubound_clicked()
 {
-    if (deque_model_.items.empty()) return;
-    if (!isSorted()) return;
+    if (deque_model_.items.empty()){
+		return;
+	}
+    if (!isSorted()){
+		return;
+	}
     auto it = std::upper_bound(deque_model_.items.begin(), deque_model_.items.end(), ui->txt_elem_content->text().toStdString());
     deque_model_.iterator = it;
     ApplyIterator();
